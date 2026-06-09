@@ -2,15 +2,14 @@ import json
 
 students = []
 
-# =========================
-# HELPERS
-# =========================
 def calculate_gpa(grades):
+# Calculate GPA based on average grade
+# Converts numerical average into a 4.0 scale system
     if not grades:
         return 0
 
     avg = sum(grades) / len(grades)
-
+#conditions for the GPA,this is based off my university, you could change
     if avg >= 90:
         return 4.0
     elif avg >= 80:
@@ -22,10 +21,7 @@ def calculate_gpa(grades):
     else:
         return 0.0
 
-
-# =========================
-# CORE FUNCTIONS
-# =========================
+#use dictionaries to store student info
 def add_student():
     sid = input("Enter ID: ")
     name = input("Enter First Name: ")
@@ -34,12 +30,15 @@ def add_student():
         "id": sid,
         "name": name,
         "grades": []
+        #create student record without any grade until the add_grade function is used
     })
 
     print("Student added!")
 
 
 def add_grade():
+# Add grade to an existing student
+# Searches student by ID then appends grade
     sid = input("Enter student ID: ")
 
     for s in students:
@@ -90,11 +89,8 @@ def delete_student():
 
     print("Not found!")
 
-
-# =========================
-# ⭐ NEW FEATURE: SORT BY GPA
-# =========================
 def sort_by_gpa():
+# Sort students by GPA in descending order
     if not students:
         print("No students found.")
         return
@@ -116,10 +112,9 @@ def sort_by_gpa():
         rank += 1
 
 
-# =========================
-# ⭐ SAVE / LOAD (IMPORTANT)
-# =========================
 def save_data():
+    # Save all student data to a JSON file
+    # Allows data persistence between program runs
     with open("students.json", "w") as f:
         json.dump(students, f)
 
@@ -134,10 +129,6 @@ def load_data():
     except FileNotFoundError:
         students = []
 
-
-# =========================
-# MENU
-# =========================
 def menu():
     load_data()
 
